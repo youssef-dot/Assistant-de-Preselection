@@ -1,0 +1,6 @@
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+# Ken el-dataset mteak kbir barsha (akther men 100MB), zido houni:
+data/
+*.pdf
