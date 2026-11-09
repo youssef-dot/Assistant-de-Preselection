@@ -1,0 +1,24 @@
+stages:
+  ingestion:
+    cmd: python src/data_loader.py
+    deps:
+      - src/data_loader.py
+      - configs/params.yaml
+    outs:
+      - C:\Users\youssef\OneDrive\Bureau\5EME\DeepLearning\projet6\data\dataset_resume_fusionne_final.csv
+
+  preprocessing:
+    cmd: python src/data_processor.py
+    deps:
+      - src/data_processor.py
+      - data/dataset_resume_fusionne_final.csv
+      - configs/params.yaml
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
+
+  evaluate_data:
+    cmd: pytest tests/test_data_quality.py
+    deps:
+      - tests/test_data_quality.py
+      - data/processed/train.csv

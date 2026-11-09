@@ -1,0 +1,23 @@
+base:
+  project_name: Assistant-de-Preselection
+  random_state: 42
+
+data:
+  raw_path: "data/dataset_resume_fusionne_final.csv" 
+  processed_dir: "data/processed/"
+  train_path: "data/processed/train.csv"
+  test_path: "data/processed/test.csv"
+  val_path: "data/processed/val.csv"
+  test_size: 0.2
+  val_size: 0.1
+
+quality_checks:
+  max_missing_threshold: 0.05 # 5% max missing values
+  required_text_columns: ["resume_text"]
+  required_struct_columns: ["experience_years", "education_level"]
+
+model:
+  text_encoder: "distilbert-base-uncased"
+  batch_size: 16
+  epochs: 5
+  learning_rate: 0.0001

@@ -1,0 +1,53 @@
+schema: '2.0'
+stages:
+  ingestion:
+    cmd: python src/data_loader.py
+    deps:
+    - path: configs/params.yaml
+      hash: md5
+      md5: 9b1c8bd80aeccb5514c977a3b2dca0d1
+      size: 616
+    - path: src/data_loader.py
+      hash: md5
+      md5: 8d4c4c2218ae5b842d0f60dfb64cc6cf
+      size: 1918
+    outs:
+    - path: data\dataset_resume_fusionne_final.csv
+      hash: md5
+      md5: a28a4b214ad45dc55fca6d5f5b3c0249
+      size: 19043274
+  preprocessing:
+    cmd: python src/data_processor.py
+    deps:
+    - path: configs/params.yaml
+      hash: md5
+      md5: 9b1c8bd80aeccb5514c977a3b2dca0d1
+      size: 616
+    - path: data/dataset_resume_fusionne_final.csv
+      hash: md5
+      md5: a28a4b214ad45dc55fca6d5f5b3c0249
+      size: 19043274
+    - path: src/data_processor.py
+      hash: md5
+      md5: 973c07087b6a76efa2a8d75f55285bca
+      size: 4076
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: ae117857d540a3f5579cfe03723cc384
+      size: 3086694
+    - path: data/processed/train.csv
+      hash: md5
+      md5: d44781020afd3b8805c3ca1337e80fdf
+      size: 12435376
+  evaluate_data:
+    cmd: pytest tests/test_data_quality.py
+    deps:
+    - path: data/processed/train.csv
+      hash: md5
+      md5: d44781020afd3b8805c3ca1337e80fdf
+      size: 12435376
+    - path: tests/test_data_quality.py
+      hash: md5
+      md5: c74664a63bcf854abc4510c150a5b809
+      size: 861
